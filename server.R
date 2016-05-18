@@ -170,8 +170,8 @@ getValue <- function (string, date){
   }else{
     #Test function
     
-    D <- getMediaCongo(string,1)
-    write.csv(getMediaCongo(string,1)$keyPubContent, "tmpdData.csv",row.names=F)
+    D <- getMediaCongo(string,2)$keyPubContent
+    #write.csv(getMediaCongo(string,1)$keyPubContent, "tmpdData.csv",row.names=F)
   }
   
   return (D)
