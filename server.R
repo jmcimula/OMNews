@@ -2,6 +2,7 @@
 library(shiny)
 library(stringr)
 library(dplyr)
+library(knitr)
 
 getmdXRubrique <- function (mdXRubrique){
   if (tolower(mdXRubrique)== "politics" || tolower(mdXRubrique)== "politique"  ){mdXRubrique <- "articles-actualite-1-page-"}
@@ -162,8 +163,9 @@ getValue <- function (string, date){
        D <- "Please select information section and date"    
     
   }else{
+    #Test function
     
-    
+    D <- getRadiOkapi(string,2)
   }
   
   return (D)
