@@ -1,22 +1,31 @@
 
 library(shiny)
+library(stringr)
+library(dplyr)
 
-pp <- function (st, vt){
+
+
+getValue <- function (string, date){
   
-  if (st == ""){
+  if (string == ""){
     
-    p <- "Select from information section and date"
+       D <- "Please select information section and date"    
     
   }else{
     
-    p <- paste(st,vt,sep="--")
+    
+    
+    
+    
+    
+    
   }
   
-  return(p)
-} 
+  return (D)
+}
 
 
 shinyServer(function(input, output) {
-  output$sx <- renderPrint({pp(input$slt,input$date)})
+  output$sx <- renderPrint({getValue(input$slt,input$date)})
   
 })
