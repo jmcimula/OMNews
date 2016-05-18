@@ -3,6 +3,11 @@ library(shiny)
 library(stringr)
 library(dplyr)
 library(knitr)
+library(wordcloud)
+library(tm)
+require(RColorBrewer)
+
+setwd("~/R/OMNews/")
 
 getmdXRubrique <- function (mdXRubrique){
   if (tolower(mdXRubrique)== "politics" || tolower(mdXRubrique)== "politique"  ){mdXRubrique <- "articles-actualite-1-page-"}
@@ -165,7 +170,8 @@ getValue <- function (string, date){
   }else{
     #Test function
     
-    D <- getRadiOkapi(string,2)
+    D <- getMediaCongo(string,1)
+    write.csv(getMediaCongo(string,1)$keyPubContent, "tmpdData.csv",row.names=F)
   }
   
   return (D)
@@ -174,5 +180,6 @@ getValue <- function (string, date){
 
 shinyServer(function(input, output) {
   output$sx <- renderPrint({getValue(input$slt,input$date)})
+  #output$tx <- renderImage({getWord(input$slt,input$date)})
   
 })

@@ -19,7 +19,8 @@ shinyUI(pageWithSidebar(
   ),
   mainPanel( 
     h4("For more information please click on the link below"),
-    verbatimTextOutput("sx")
+    verbatimTextOutput("sx"),
+    imageOutput("tx")
     
     
   )
