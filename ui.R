@@ -1,30 +1,47 @@
-
+library(shinydashboard)
 library(shiny)
-# Define UI for application that draws a histogram
-shinyUI(pageWithSidebar(
-  
-  # Application title
-  headerPanel("OMNews"),
-  
-  sidebarPanel(
+library(knitr)
+
+
+dashboardPage(
+  dashboardHeader(title = "OMNews Cimula Live"),
+  dashboardSidebar(
     
-    selectInput("slt", label = h4("Information section"), 
-                choices = list("Make your choice" = "","Politics" = "politique", "Economy" = "economie",
-                               "Society" = "Societe","Job Opportunity" ="emploie", "Sport" ="Sport"), selected = 1),
-    dateInput("date", 
-              label = h4("Period"), 
-              value = "2016-01-01"),
-    submitButton("Search")
+    helpText("OMNews : Webscrapping from Mediacongo.net and the number of followers per articles posted."),
+    helpText("You can search here news about : Politics, Economy, Society and Sport"),
+    sidebarSearchForm(textId = "searchText", buttonId = "searchButton",label = "Search...",icon = shiny::icon("search")),
+    sidebarMenu( 
+      menuItem("Dashboard", tabName = "dashboard",icon = icon("dashboard")), 
+      menuItem("WordCloud", icon = icon("th"), tabName = "rawdata",badgeLabel = "new", badgeColor = "green")
+    )
     
   ),
-  mainPanel( 
-    h4("For more information please click on the link below"),
-    verbatimTextOutput("sx"),
-    imageOutput("tx")
-    
-    
+  dashboardBody(
+    tabItems( 
+      tabItem("dashboard", 
+              fluidRow( 
+                valueBoxOutput("rate"), 
+                valueBoxOutput("count"), 
+                valueBoxOutput("users") 
+              ), 
+              fluidRow( 
+                box( 
+                  width = 8, status = "info", solidHeader = TRUE, 
+                  title = "Latest news in Mediacongo...",
+                  dataTableOutput("packageView")
+                  #verbatimTextOutput("packageView")
+                ), 
+                box( 
+                  width = 4, status = "info", 
+                  title = "Description of the article", 
+                  tableOutput("packageTable") 
+                ) 
+              ) 
+      ), 
+      tabItem("rawdata", 
+              plotOutput("rawtable")
+      )
+    )  
   )
-  
-  
 )
-)
+
